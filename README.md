@@ -1,1 +1,5 @@
 # kotlin
+
+- variables
+- statements
+- functions
