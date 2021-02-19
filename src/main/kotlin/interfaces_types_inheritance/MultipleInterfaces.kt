@@ -1,4 +1,4 @@
-package interfaces
+package interfaces_types_inheritance
 
 interface SessionInfoProvider {
     fun print() {
