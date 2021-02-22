@@ -1,22 +1,18 @@
-package sealed_classes
+package data_class
 
 import java.util.*
 
 /*
-    Sealed class: allows us to define restricted class hierarchies
-    Enum : a group of distinct constants. Can have properties
-    Object declarations: a convenient way to create a threadsafe singletons in Kotlin
+    // Data class: Kotlin's way of concise immutable class
  */
 
 enum class ComplexityLevel(val value: String) {
     EASY("Easy"), MEDIUM("Medium"), COMPLEX("Complex"), HELP("Help")
 }
 
-//sealed classes can not be instantiated directly
-//sealed classes can have classes that can have different properties and compiler can do smart-casting between them
 sealed class Entity() {
     //data classes but can be normal classes too
-    //
+    // Kotlin's way of concise immutable class
     data class Easy(val id: String, val name: String) : Entity()
     data class Medium(val id: String, val name: String) : Entity()
     data class Complex(val id: String, val name: String, val multiplier: Float) : Entity()
@@ -42,12 +38,11 @@ object EntityFactory {
 
 fun main() {
     val entity: Entity = EntityFactory.create(ComplexityLevel.COMPLEX);
-    val msg: String = when (entity) {
-        is Entity.Easy -> "We have an Easy Entity"
-        is Entity.Medium -> "We have a Medium Entity"
-        is Entity.Complex -> "We have a Complex Entity"
-        Entity.Help -> "We have a Help Entity"
+    val entity2: Entity = EntityFactory.create(ComplexityLevel.EASY);
+
+    when(entity == entity2) {
+        true ->   println(" ${entity} ${System.lineSeparator()} ${entity2} ${System.lineSeparator()} ==>>> Equal")
+        else ->   println(" ${entity} ${System.lineSeparator()} ${entity2} ${System.lineSeparator()} ==>>> Not Equal")
     }
 
-    println(msg)
 }
