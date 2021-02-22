@@ -24,27 +24,34 @@ sealed class Entity() {
 
 }
 
-
+// Extension of a class by adding a function
 fun Entity.Medium.getNewStringRepresentation() {
     print("Printing Entity.Medium:[id: $id, name:$name] ${System.lineSeparator()}")
 }
 
-fun main() {
-    val entity: Entity = Entity.Complex("id", "complex", 0.2f)
-    val entityMedium: Entity = Entity.Medium("id", "medium")
+// property extension
+/*
+    We have to support the property by providing a backing field, hence the get() = "whatever we want"
+ */
+val Entity.Easy.aNewProperty: String
+    get() = "new value"
 
+fun main() {
+    val entityMedium: Entity = Entity.Medium("id", "medium")
     //using extended function
     Entity.Medium("id", "medium").getNewStringRepresentation();
 
     // this won't work since entity2 is of type Entity
-//    entity2.getNewStringRepresentation()
-
-    var entity4 =  entityMedium as Entity.Medium;
-    entity4.getNewStringRepresentation();
+    //    entity2.getNewStringRepresentation()
 
     if(entityMedium is Entity.Medium) {
         // this is going to work
         entityMedium.getNewStringRepresentation()
     }
+
+
+    //using extended property
+    val easy: Entity.Easy =  Entity.Easy("id", "medium");
+    println("The new field has value: ${easy.aNewProperty}")
 }
 
